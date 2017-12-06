@@ -1,0 +1,37 @@
+== Ch 1: Thinking about Thinking ==
+* Mapper vs Packer
+  - Building a mental mapping of the world, versus having packets of knowledge
+* Mappers work effectively together because they share mental models, and a "gelled team" is one that has a shared mental mapping.
+* A lot of reflection & effort must be spent towards a mental model to truly understand something.
+  - Build a map with disciplined daydreaming
+* A mental mapping is the translation of the world to how you understand it
+  - "Mappers experience learning as an internal process in response to external and self-generated stimuli."
+* Mappers emphasize understanding not data
+* Some mapper/packer notes:
+  - Infinite Jest is a pretty good illustration of the mapper/packer dichotomy. The book is very confusing in part because the knowledge packets themselves are hard to consume, but the true complexity comes from the fact that it is very difficult to properly build a map of what's going on in the book
+  - Perspective on tools can also be viewed from a mapper/packer idea. Tools themselves are just tools, to focus on getting better as a goal is a packer mentality (build up your knowledge packets) but to use tools as a reflection of your mental model is a mapper mentality. Stuff like named-screen helps transfer your mental mapping to the real world. The closer the real world/ your workflow is to your map, the more efficient/effective you become!
+
+== Ch 2: Thinking about Programming ==
+* Software engineering is distributed programming
+  - We distribute programming for the same reasons that we distribute any kind of processing: availability, parallelism and specialisation.
+* Programming is a mapper's game:
+  - Take Problem, get Insight into Semantics to solve the problem
+  - Interaction of the problem and semantics can be fulfilled by a given use of the semantics
+* There is an important difference between intentionality and action
+  - Evaluate options against objectives
+* "We should be willing to look at the source code we produce not as the end product of a more interesting process, but as an artifact in its own right. It should look good stuck up on the wall."
+* "The point is, there shouldn't be anything around that does not have a carefully arranged purpose with respect to the other elements of the composition."
+
+== Ch 3: The Programmer at Work ==
+* To solve a problem, find a mapping between the problem domain and system semantics that fulfill the desire
+  - This is deeply tied to solving the problem on a conceptual level versus using your tools... you want to find the best semantics to fulfil the desire not contort the problem domain to a space in which your semantics can be applied
+  - "Languages are specialised by problem domain to offer greater chances of achieving simpler mappings to any given problem within the chosen domain."
+  - When picking tools, ask which one requires the simpler mapping
+* An approach is advice about how to tackle a problem. It is an invitation to see the world a certain way disguised as procedural guidance
+* User requirements is about crystallizing desire from general discomfort to a specific need
+* "We have the problem domain, the system semantics, and a mapping between the two created by the programmer in the light of the desire."
+* You must understand what you are setting out to achieve if you want to know when you get there. At any point, you should be able to say what you think you are doing (even if this changes!)
+* Control the shape of the bricks, to constrain the shape of the house, while leaving flexibility in the hands of the designer
+* If a colleague is saying something that doesn't make sense, maybe they are sharing a part of their map you see very differently! "Start with the assumption they have something interesting in their heads, and try to figure out what it is."
+
+

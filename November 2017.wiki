@@ -1,0 +1,71 @@
+== 11/1 ==
+* For any piece of architecture, ask: "what value add does this give?"
+* Be wary of architectural layers for structural reasons, think about what problem this thing is solving and what value this thing is providing
+  - Similar idea as the process of 5 Whys in the Lean Startup
+* Recognize things as things (i.e. pattern matching)
+* Be careful of saying that you suck, because to people who might not know you as well, it might be taken the wrong way
+=== 1:1 Rick ===
+* What separates a mid and an associate, a mid and a senior?
+* 2 important pieces to work on:
+  - building instinct
+  - finding experience opportunities
+* Get into shitty situations and figure out how to get out
+* How do you maximize understanding in a design discussion?
+  - Learn from other people how to get from A to B, what their instincts are like
+  - Think about how they use nouns and verbs. Their choice shows you how they are abstracting it in their minds
+  - Think about what levels of abstraction they use, what they go on a high level for and what they dive deep for
+* The biggest separator is scope & autonomy
+  - At what level can you say that the buck stops at you, what level are you free to operate at and build stuff and solve problems?
+
+== 11/6 ==
+=== Thinking about the right questions ===
+* In a design discussion, there are two important aspects. One is *experience*, in the sense that you are able to suggest new options and evaluate options based on pattern matching from experience. This is obviously heavily dependent on experience and time, and effort spent thinking about abstracting past experience. The other part of this is *value analysis*, in the sense that you are able to analyze how valuable this technical design/ architecture is from a product/ addressing the problem at hand perspective.
+* The first one takes time & experience to build up, whereas even a junior person can contribute in the second way significantly.
+* Two questions I've found helpful in design discussions are:
+  - "Hey wait sorry I have no idea what's going on, but I'm having trouble expressing exactly what it is I am confused about. Can you help?"
+  - "Why are we doing this? What value does this provide?"
+* I try to ask the second and it often helps give me enough context to understand the first. This is because getting the small pieces is not as hard, understanding how it all fits together and why is what confuses me.
+
+== 11/7 ==
+* How hrefs work in html
+  - base url = http://baseurl.com/foo/bar
+  - baz -> http://baseurl.com/foo/baz
+  - /bar -> http://baseurl.com/baz
+  - //bar -> http://bar
+
+== 11/8 ==
+* Terraform is a system for programmatically managing cloud resources
+* Terraform is declarative, and terraform plan/apply will run all the .tf files in the project. It will spin up the "declared" state of the world in the .tf files, and compare it to the current state of the world, and add/modify/delete whatever it needs to match the state of the world to the declaration.
+* The two strings after terraform arguments/configurations are: [type-of-terraform-thing (e.g. resource, data) ] [identifier]
+=== Interviewing (Deep Tech) ===
+* Try to find out what they are an SME on
+* Look at the resume, see what areas would be good to look at in a Deep Tech interview
+* If nothing in particular, then use an algorithms question
+* A good coding question has multiple solutions, can be solved multiple ways, and the domain is well known (don't have to waste time getting context)
+* Prompts the interviewee to think about the problem, requirements, assumptions
+
+== Sometime in November ==
+* Using default props for react components is useful for two nice reasons:
+  - Shows what structure of data the react component expects
+  - Allows for testing/quick iteration when creating new components, b/c can spoof props
+* React State vs Redux Store
+  React state is stored within a component. When using redux, state is stored in a global Redux store. Components can subscribe to the store to get access to the value.
+  - When to use React vs Redux?
+    * Use React for ephemeral state that isn't important to the app globally. Use Redux for state that matters globally or mutates in complex ways.
+    * Short term state, like characters in a text field, can be stored in the React state.
+    * Medium term state, like results to API calls that persist until page refresh, can be stored in the Redux store.
+    * Long term state, like persistent data, should be stored in something like a DB.
+  - Benefits of Redux:
+    * Can track changes to the state in Redux (useful esp with dev tools)
+    * Multiple components unrelated to each other can get access to the same state
+    * Decouples "what happened" from "how things change"
+  - https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367
+=== Jeff Kaplan's Talk at Riot ===
+* Accountability and empowerment are the most important qualities a team can have
+* No point in hiring best in class if we have a cog in the machine environment. Hire the best, and then empower them
+* "Default to trust," don't discount anyone's thoughts
+* We should care about the holistic experience, tear down barriers b/w disciplines
+* If you're a great leader, you don't need to make many decisions. The team should converge towards something
+* Ways of being in charge (ordered from worst to best): control, management, and inspiration towards collective vision
+* In a team with accountability, we own anything as much as anyone else
+  Aim to help own the process in a loving, trusting, and respectful way, because everyone has the same goal

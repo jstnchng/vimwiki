@@ -1,0 +1,9 @@
+== 12/5 ==
+* Some useful questions to think about & ask:
+  - How have I helped the team improve?
+  - What about my peers makes them irreplaceable members? Are there any qualities/ abilities I want to emulate/learn?
+  - What kind of SME do I want to be? What do people go to you for help?
+* Contributions are different when the team is in different phases.
+  Contributing positively when the team is in the exploratory phase means doing a lot of research, participating in product/design discussions, making a lot of one off things
+  Contributing positively when the team is in the build/support phase involves having a good grasp of the services we support and thinking about things like scalability, sustainibility, etc.
+* Contributions in tech/code are nice, but lines of code is not always the same as value. Other ways to contribute for someone less experienced: people, process, asking questions, give opportunities for mentorship, etc.

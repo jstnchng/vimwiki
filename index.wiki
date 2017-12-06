@@ -1,0 +1,12 @@
+= Stuff I've Learned =
+* [[September 2017]]
+* [[October 2017]]
+* [[November 2017]]
+* [[December 2017]]
+
+= Blog =
+* [[Tools]]
+* [[Ownership]]
+
+= Some random notes =
+* [[The Programmer's Stone]]

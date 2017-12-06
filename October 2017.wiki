@@ -1,0 +1,138 @@
+== 10/3 ==
+* Map takes list => list, reduce takes list => single item
+  - The naming makes a lot of sense... mapping applies to each item and returns 1 thing for each item it acts on, reduce shrinks everything to 1 thing
+
+== 10/5 ==
+* Your 1:1 should never be just a status update! That's what rituals/processes are for.
+* What is the definition of done? (there is a potential tech blog post here) There is:
+  - Done developing on local
+  - Shipped to staging
+  - Shipped to prod, where customers can see
+  - Shipped to prod, where customers are aware and are using it
+  - Documented
+  - Tested
+
+== 10/10 ==
+* When you're working with something new, it is your responsibility to improve the documentation
+  - Follow the natural steps, document what you naturally think should happen but don't actually expect (i.e. place your mental mapping into the real world)
+* Your tools unconsciously influence how you think- work to identify unconscious pains and make them better
+=== Thinking about pairing ===
+* When should you pair?
+  - One person driving, the other person navigating (i.e. following high level plan and providing high level direction)
+  - One person driving, the other person unblocking (i.e. googling stuff, figuring out api keys, documentation, etc)
+  - Knowledge share
+* Think about what result you want to get, and whether or not pairing is effective, and if so, what type of pairing?
+
+== 10/11 ==
+=== Design ===
+* Be conscious of a goal. Have a clear goal for that experience, and a clear idea of who you're designing for
+* How does it fit into their day to day?
+* Features are a means to an end. High level, what do you want to accomplish? What are their pain points?
+* Find a typical representative to help you get customer feedback
+* Essence of UX design is putting yourself in other peoples shoes and figuring out what the right thing to build is
+* Who are we doing this for? What is the right thing to make, and how do we know?
+  If your answer is your opinion, then you aren't doing your diligence
+* Start with the question of why
+* Isolate the problem and the solution. Customers know their problem well, but articulate it in the form of a solution. Don't get blinbed by the solution
+* Feeling in software is not just the look
+
+== 10/18 ==
+* Thunk
+  - A "thunk" is a function that wraps an expression to delay its evaluation
+  - Thunk in redux is a middleware between the reducer applying actions to the state, lets you write action creators that return a function instead of an action
+  - Thunk can be used to delay the dispatch of an action, or to dispatch only if a certain condition is met
+  - Helps handle async actions in redux
+* Redux
+  - 1 global state object, modifiable only by actions
+  - Dispatching an action => applying action to state, returning modified copy of state
+  - Can add middleware (midway point between dispatching an action and it reaching the reducer)
+    Can be used for logging, crash reporting, talking to an async API, routing, etc.
+* currying functions:
+  const add = x => y => x+y
+  is equivalent to
+  const add = function (x) {
+    function (y) {
+        x+y
+    }
+  }
+* While I'm taking on a feature, make sure to keep the team updated on decisions that I make. At some point, come up with a list of solutions, set expectations and time and difficulty with the team. Avoid spur of the moment updates and bringing up challenges 1 by 1, try to have a distinctive plan (even if it is fuzzy) to share
+
+== 10/19 ==
+* The best way to change behavior/ teach something is to shine a light on it! That should always be the first step- help make people aware of things
+* How do you figure out how you've grown? A good way is to ask the people around you. This is good in several ways:
+  - They have a perspective on your growth that you may not be able to see
+  - It strengthens team morale and camaraderie
+  - It codifies the good and inspires other people to do the same
+=== MVCC ===
+* MVCC = multi version concurrency control
+* For transactional data stores MVCC is using a monotonically increasing numeric version field, and using the previous read version in every update to identify the entry by key and version
+* Atomically increment the version if the update succeeds, and verify that only one entry was updated. If there are 0 entries, then there is a collision (another process/thread has updated the version before you did)
+* Helps you detect collisions but doesn't prevent collisions or handle conflict resolution
+
+== 10/24 ==
+* How do we better support the people around us?
+  - Riot is a strong feedback culture but sometimes the support that people really need is not action items and feedback, sometimes people just need to be heard & want to talk
+  - Q: do your teammates feel like teammates? do they feel support, and do they want to work on/with the team?
+* Approach problems from the view of a customer
+  - Take a scientific approach to building products by validating our assumptions
+* How do we break down the pieces that you need
+  - Writing code is easy, figuring out what to write is hard
+* The big question is: what sucks, and why does it have to suck?
+* Design pattern: in general single source of truth is good. Helps eliminate a whole class of potential problems
+
+== 10/25 ==
+* What sets an associate apart from a mid?
+  - A mid level has a good definition of good. I think this points to having an informed opinion on things and having a good idea of what good looks like (more than just output and value contributed, what are the specific metrics & actions & knowledge that point to "this is a good engineer")
+  - Broaden the T shape (just in terms of depth of what you know)
+  - A good segueway into that is scale of ownership, work towards owning a 2-4 week feature
+* "Don't stress about it, just experience it"
+* Short note on process: (from 1:1 w Dave re git)
+  focus on the problem you're trying to solve- everything else is accidental complexity
+=== What makes an effective lead? ===
+* Own delivery, be a force multiplier, develop talent, identify and mitigate risk
+* Own delivery
+  - Not just back of the box features (the new fancy stuff) but front of the box features
+  - Stuff that needs to happen to make shipping possible
+  - Write code as a backup/ fill in the gaps
+* Be a force multiplier
+  - Make everyone else more effective
+  - Where are they hitting bottlenecks?
+  - Improve flow & be a bullhit protector
+* Develop talent
+  - Next lead, train the role behind you
+  - Share knowledge that you have
+  - Use code reviews to develop talent
+    Code reviews are about more than just correctness, also about quality/style
+* Identify and mitigate risk
+  - Technical vs scheduling risk
+  - Certainty vs severity
+  - Make sure risk is understood and clear, not necessarily actually make the decisions
+
+== 10/27 ==
+=== Notes from SCNA ===
+==== Security driven programming ====
+* Ways to handle failure:
+  Eliminate > Detect > Inform User
+* Design to eliminate modes
+* Improve detection/ discovery
+  - Chaos engineering
+  - Generative testing
+* System tests drive unit tests, unit tests drive system tests
+* Fewer features, all complete
+* Issues hidden from discovery process will be discovered by the customer
+* Use your process to lift quality
+==== Mob Programming ====
+* 4,5 people programming through 1 person, not 4,5 people watching 1 dude
+* Driver navigator vs driver observer
+* Navigate at a level of detail the driver needs
+* For an idea to go from someone's head into the computer it must go through someone else's hands
+* Want a better way to communicate w the computer than the keyboard
+* Driver takes human lvl communication and translates it to the computer
+* Keyboard is dumb, people are smart
+* Rotate every 7-10 minutes
+* Thinking about what to do next
+* Let's figure out how to work well together. Team is the best way to learn how to do that.
+* "The object isn't to make art, it's to be in that wonderful state which makes art inevitable"
+
+== 10/31 ==
+* in JS get named parameters by destructuring an object

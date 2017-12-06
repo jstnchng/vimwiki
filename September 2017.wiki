@@ -1,0 +1,201 @@
+== 9/6 ==
+* Use 'done' very carefully
+  Does 'done' refer to finished developing? Merged into master? Deployed to staging? Deployed to prod?
+
+== 9/11 ==
+* See clojure as a REPL environment- prod env that is always running (no idea of an exit)
+  advantages: easy to test, real time changes, easy to see the state of the world
+  disadv: hard to write quick CL tools (something Go is good at?)
+  not a technical restriction, more community/culture
+* Don't be afraid to ask questions- there will always be a disruption, and it is better to have it now than later
+* *JS let vs const, block scope*
+  What does:
+  for(var i=0; i<10; i++){}
+  console.log(i)
+  print?
+  A: 10
+  Because a variable declared w/ var in block scope is available outside that block scope, in function scope
+  What does:
+  for(let i=0; i<10; i++){}
+  console.log(i)
+  print?
+  A: ReferenceError: i is not defined
+  let in ES6 provides block scope, like most other languages!
+
+== 9/12 ==
+* How do we view technical documentation?
+  What comes first? Product or technical discussion?
+  For each product, there will be many possible technical solutions: write an RFC for each of those
+  Explore engineering solutions before product is made (make it cheap to ask for & receive feedback)
+
+== 9/13 ==
+* Don't deploy stuff at 9 pm - you're probably tired and if things break everyone will be sad
+* *git rebase*
+  on branch _x_, git rebase _y_ rewrites all the commits done in x on the head of branch y.
+  Question: how do you get gnarly double commits?
+  Answer: git pull remote branch _y_ after rebasing _y_ on _x_.
+  *Don't* pull after rebasing, because you will change the history between the remote branch and the local branch. After you rebase, you will want to merge _y_ into _x_, and then delete _y_. If you must, then git push force, but if anyone else is working on the branch, when they pull, their local history & remote history will diverge, and they will be sad and confused. Instead, options include:
+  - Create a new branch off your rebased branch _y_, call it _y'_, and then create a PR off of that and merge it in (to avoid overwriting history of _y_)
+  - git push force, but forcing anything *should* make you nervous
+  - merge into _x_, delete _y_
+
+== 9/14 ==
+* renaming files doesn't register in git, use git mv instead (some VCS ignore case)
+* in ES6, x = () => 100
+  or x = () => { return 100 } both return 100, but
+  x = () => { 100 } doesn't return anything. This is designed like this
+  because {} can refer to a code block OR an object in JS.
+* What do you need to support a service/product? You need a high level map and a compass. There is an important difference between adding features and supporting them. For the former understanding specifics can be helpful, for the latter a runbook is helpful, but not all products are critical enough to need a runbook.
+* There are two levels of "breaking down a problem." There is the level from user story to technical solutions, and then from technical solutions to technical implementations (although this process can be recursively applied for big stories). Generally negotiate with your PO to translate user stories to technical solutions, then discuss technical solutions with other engineers. For example, if the user story is "as a user I'd like to roll down a hill," then technical solutions can be "bicycle" or "hamster wheel" or "skateboard." Then, you can negotiate with your PO, land on "bicycle," and then talk through the technical implementation of a bicycle.
+* *Look for _accidental complexity_!*
+  Always think about what you are trying to accomplish and separate necessary complexity from accidental
+  This applies in email writing, in documentation, in code, in communication, etc...
+* Process for refactoring:
+    - Does this look right?
+    - Can we remove this accidental complexity?
+    - Repeat
+
+== 9/18 ==
+* Say what you're going to say, say it, then say it again
+* Lay out the issue, explain the solution (if necessary), and give a timeline (if possible)
+* How to troubleshoot resource management problems
+    - Use ps command to see current processes (too many threads)
+    - Get thread dump of a Java process with kill -3 {pid}
+    - Always want to be able to capture the right forensics
+* Idempotent vs referentially transparent
+    - Idempotency = f(f(x)) = f(x)
+      Another common explanation is "an operation that will produce the same results if executed once or multiple times"
+    - Referential transparency in computer programs means if you replace an expression with the result of the expression, the behaivor of the program is preserved.
+      Only the value of immediate component expressions is significant in determining the meaning of a compound expression
+    - All idempotent functions are referentially transparent, not all referentially transparent functions are idempotent (based on the mathematical definition)
+    - An example is int add1(int i) { return i+1; } is referentially transparent but clearly not idempotent
+* Preventing stuff from crashing and burning allows the team to prioritize freely, instead of being pulled away from emergent work whenever it comes up
+* ETL: extraction, transform, load
+    - Extracting data from multiple sources, transform into format you need, load it into your data warehouse
+* ODS: operational data store, used for integrating disparate data from multiple sources
+  ODS vs data warehouse:
+  - ODS interim or staging area for DW, designed for performance and queries on small amounts of data
+  - More frequent loads for ODS vs DW
+=== Closures: ===
+* Function with an environment of its own (persistent local variable scope)
+  Record storing a function with an environment, maps free variables in the function w/ the value/reference from env that closure was created with
+* const closure = (x) => {
+    const inner = (y) => { return x+y }
+    return inner
+  }
+  - This is an example of a closure, closes over y.
+  const closure1 = closure(1)
+  const closure2 = closure(2)
+  closure1(3) = 4 , closure2(3) = 5
+  - The return is different because the free variable x is mapped to values from different environments (function closes over different environments)
+* Anonymous functions vs closures
+  - A closure is a function that captures state of the surrounding environment, a lambda is just a function w/o a name
+  - Not all lambdas are closures, not all closures are lambdas
+
+== 9/20 ==
+* Closures are a poor man's objects, objects are a poor man's closures
+  Closures & objects both encapsulate data/logic in 1 logical unit
+  Expressible in terms of each other, so dependent on what you're used to
+
+== 9/21 ==
+* Flyway is used to apply migrations
+  Migrations are sorted based on version number, and applied in order
+  A log is kept in a metadata table called schema_version created by Flyway
+* DB changes happen through a "migration"
+* Test fixtures is basically a context/environment for tests so tests are easily repeatable
+  Tests run against the background of a known set of objects
+* Have a PMA!
+* Paperboy is an open source set of tools that can read any feed (or XML format) & output any format
+  - Pulls in and reads events
+  - Can transform any XML based document into any text based document type with XLST templates
+    (XLST: template to express style sheets, describes how to display an XML document)
+* An Eventbus is a mechanism that allows different components to communicate w each other w/o knowing about each other
+  Send events to eventbus (not knowing who consumes) -> eventbus <- pick up events from eventbus (not knowing who sent)
+* Decouple schema, data, and representation!
+  Schemas is a model of data, should not be data
+
+== 9/22 ==
+* Philosophy of deploys
+  - Keep a journal of the deploy process
+  - The fastest way to fix a deploy problem in prod is to rollback
+  - Make sure, as always, that you have a plan and a way to verify it!
+  - When executing DB queries in psql on CL in prod, write the queries somewhere else and c&p them in
+* When there is a live issue
+  - Document what you've tried
+  - Have a plan
+  - Communicate with everyone affected by the live issue
+* HTTPS uses a secure protocol to encrypt communications
+  - A browser or server attempts to connect to a Website, a.k.a. Web server, secured with SSL.
+  - The browser/server requests that the Web server identify itself.
+  - The Web server sends the browser/server a copy of its SSL certificate.
+  - The browser/server checks to see whether or not it trusts the SSL certificate. If so, it sends a message to the Web server.
+  - The Web server sends back a digitally signed acknowledgement to start an SSL encrypted session.
+  - Encrypted data is shared between the browser/server and the Web server.
+* What does it mean to have ownership over something?
+  - Ownership over something is not necessarily do the thing yourself. Ownership over something means you are responsible for driving its completion, whether it be doing it yourself or delegating or asking for help, or even communicating to the team that something won't be finished on time, and what we should do to address it.
+* When testing, put on your product hat! Functional code means nothing if it doesn't address the user story.
+* The most important thing about deployment is consistency. In general, *deploy on prod what you have tested on staging.* This means same artifacts, same _as many things as you can_.
+* Credentials are power, and power is dangerous! To be responsible about the credentials that you have the privilege to have access to:
+  - Do you really need the credentials? Think about what you are going to do with them, and what value you add by having them
+  - Do you understand what level of access those credentials afford? What services you can touch/affect, what scope?
+  Ultimately, it comes down to: do you know enough to be responsible for the credentials that you have been given?
+
+== 9/25 ==
+* Auto scaling group is a collection of EC2 instances, treated as a logical grouping for purposes of instance scaling & management
+  - Specify min number of instances, desired capacity, maximum size, etc.
+* Some CSS tags
+  - _float_ specifies if an element should be placed along left or right of its container
+    Allows inline elmts and text to wrap around it (removed from normal flow of web page)
+  - _overflow_ specifies whether to clip content, show scrollbars, or display overflow content when it's too large for its block level container
+  - _display_ specifies the type of rendering box used for an element
+* docker image vs container
+  - Think of docker images as a base system (file system), a lightweight VM
+  - Container is an instance of an image
+
+== 9/26 ==
+* Demo stuff
+  - Be hyper aware of audience and context
+  - What do they take away from this? Why are they here? What do they care about?
+  - Address their context & their background
+  - Think about what type of demo you want to run - do you want questions as they come up or address them later?
+* Tools & Processes & What's really important
+  - Speed vs perceived speed: how fast do you feel like you're going, versus how fast are you actually going?
+    Think about velocity of work versus value delivered- keystrokes != speed
+  - Driving fast is not as important as picking the right road
+  - Tools & processes reflect a philosophy, make sure that they properly reflect the appropriate philosophy of the best way to deliver value
+  - Tools affect how we interact with the system
+  - Tools and processes are good because they help deliver value, don't optimize for something that's supposed to be optimized for value
+  - What is your first class citizen here: tools/processes, or value?
+
+== 9/27 ==
+* docker stuff:
+  - -it makes the container start look like a terminal connection session
+  - docker ps to see existing containers (that are running)
+  - ps -a to see all containers
+* Containers vs VMs:
+  - Containers are lightweight, easy to start, sit on top of a physical server & its host OS
+  - They share kernel, binaries, libraries, write to only through mounting
+  - VMs run their own OS
+* Thinking about effective pairing
+
+== 9/29 ==
+* Event sourcing vs event logging
+  - Sourcing: every change to the state of the application is captured in an event object. Allows you to reconstruct the application
+=== Distributed Systems ===
+* What is a *distributed system*
+  - independent, separated, autonomous components use one single interconnect to communicate & coordinate, making the system as a whole seem like a single system to its users
+* Axioms of distributed computing
+  https://computersciencesource.wordpress.com/2009/09/10/year1-distributed-systems-axioms-of-distributed-computing/
+=== CAP Theorem ===
+* http://ksat.me/a-plain-english-introduction-to-cap-theorem/
+* http://robertgreiner.com/2014/08/cap-theorem-revisited/
+* Linearizable:
+  - For read/write operations synonymous with "atomic consistency" (C in CAP)
+  - Guarantee about single operations on single objects
+* Serializable:
+  - Guarantee about groups of one or more operations over one or more objects
+  - Execution of a set of transactions over multiple items is equivalent to some serial execution (I in ACID)
+* http://www.bailis.org/blog/linearizability-versus-serializability/
+* "If someone comes to you and offers that they have the solution to problems represented by the CAP Theorem, just laugh at them" - kburton
+* https://aphyr.com/posts/313-strong-consistency-models
+* https://aphyr.com/posts/333-serializability-linearizability-and-locality
