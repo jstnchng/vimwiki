@@ -1,0 +1,21 @@
+== Ch 1 ==
+* DW/BI systems driven from the needs of business users
+* Information is used for
+  - operational record keeping
+  - analytical decision making
+* Put data in operational systems, take data out in DW/BI systems
+* Operational systems:
+  - deal w 1 transactional record at a time
+  - optimized to do the same task
+  - do not maintain history
+* DW/BI systems:
+  - optimized for w high performance queries
+  - save historical context
+* DW/BI requirements:
+  * make information easily accessible
+  * present consistent data
+  * adapt to change
+  * present data fast
+  * secure access level controls
+  * source of truth
+  *
