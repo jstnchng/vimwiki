@@ -1,0 +1,18 @@
+== 1/22 ==
+=== Debugging ===
+* Understand how the service works
+* Identify theories
+* Figure out how to test your theory, and validate
+* It is important to have a plan!
+=== ECS ===
+* service = what tasks to run, roles, load balancing, auto-scaling, health check, aggregate metrics
+* tasks = how to run this image
+  - has task def, describes everything about running an image
+  - task def has container definition, describes containers that form your application
+  - can run multiple containers in a task
+* container/image = docker terms
+* cluster = cluster of boxes
+* Everything in ECS built off of EC2 instances
+  - ECS runs docker on EC2 instances
+* Service + Task def = what I want to run and how to run it
+* services are run on instances
