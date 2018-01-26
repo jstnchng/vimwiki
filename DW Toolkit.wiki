@@ -18,4 +18,37 @@
   * present data fast
   * secure access level controls
   * source of truth
-  *
+=== 3NF Models ===
+* 3NF models seek to remove data redundancies
+  divide data into discrete entities, each of which becomes a relational table
+  also known as ER models (entity relation)
+* Difference between 3NF and dim models is *degree of normalization*
+* 3NF structures are useful for operational processing bc update/inserts happen in only 1 table
+=== Fact Tables ===
+* Fact table in a dimensional model stores the performance measurements resulting from an org's business processing events
+* Fact represents a business measure
+  * each row in a fact table is a measurement event
+  * a measurement event in the physical world has a 1-1 relationship with a single row in the corresponding fact table
+* Useful facts are additive/multiplicative, bc often many facts are retrieved at once
+* Textual information should be a dimension, often a description drawing from a discrete list of values, not a measured fact (continuous)
+* All fact tables have 2 or more FKs connecting them to dim table's primary keys. If all FKs match respective PKs in the dim table, tables satisfy *referential integrity*.
+* Fact tables have a PK, subset of its FKs, called the *composite key*. Every table w a CK is a fact table. Fact tables express many-to-many relationships. All other are dimension tables.
+=== Dim Tables ===
+* contain the textual context associated w a business measurement event
+  who what when where why how of an event
+* Dim tables tend to have less depth but more width than fact tables
+* Have 1 PK
+* Dimension attributes serve as primary source of query constraints, groupings, and report labels.
+  identify attributes with "by" keyword- find x by price, price must be a dim
+* The analytic power of the DW/BI environment is directly proportional to the quality and depth of the dimension attributes
+* Is this data a fact or a dimension?
+  * Fact if: takes on a lot of values, participates in calculations
+  * Dim if: discretely valued description, more of less constant, participates in constraints & row labels
+* Continuously valued numeric quantities are often facts, discrete numeric observations are often dim attributes
+* Dim tables should not be too normalized, they are often smaller than fact tables and improving efficiency there is not that helpful
+=== Star Schemas ===
+* Dim model: fact table surrounded by relevant dim tables (star structure)
+* Simple schemas can be queried w fewer joins more efficiently
+* Most granular/atomic data has the most dimensions
+* Dimensional models can be extended gracefully- can add new dims as long as that value is defined for existing fact rows, can add new facts as long as their level of detail is consistent w existing fact table
+*
