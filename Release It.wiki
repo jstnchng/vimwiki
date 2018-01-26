@@ -1,0 +1,52 @@
+Preface:
+- What does it mean for a product to be finished?
+- Accept that bad things will always happen! Take actions to mitigate it.
+- Your designs & early development will greatly influence how your product does, much like the foundations of buildings greatly affect its future stability
+- Stability -> Capacity -> Designing software for the data center -> Examination of what's going on in the system
+- "Real money is on the line when systems fail."
+
+Ch 1:
+- Software will be under attack as soon as we release it
+- Design for the real world- design for the customers
+- Passing QA is not the same as succeeding in the real world!
+- Design for production
+- Early decisions are the ones most baked in, related to foundational tech debt
+  - "It’s a terrible irony that these very early decisions are also the least informed. This is when your team is most ignorant of the eventual structure of the software in the beginning, yet that is when some of the most irrevocable decisions must be made."
+- Q: what about early optimization?
+- "Release 1.0 is the beginning of your software’s life, not the end of the project."
+  - related to our idea of total ownership
+- "with the increased reach and scale of our systems come new ways to break, more hostile environments, and less tolerance for defects."
+- "Systems spend much more time in operation than in development"
+- Ivory tower architect vs pragmatic architect
+  - ownership, invested tech leads, product based decision making, RFCs at scopes
+
+Ch 2:
+- Highly available, every piece of hardware redundant
+- Restore service is the first priority, before investigation
+  - Collecting data for post mortem is good, but only if it doesn't make the outage longer
+- Take automated data collection, so it doesn't interfere w/ outages or slow you down to get data
+- Figure out what to target when restoring service
+  - "rebooting the world" will almost always fix it, but takes a long time
+- Monitoring that just hits a status page is insufficient
+- Uncaught exception => resource pool exhausted => everything hangs
+- Solution testing? QR? Bugs will always exist. How do we stop them from propagating to other systems?
+
+Ch 3:
+- Software must be cynical. "Cynical software expects bad things to happen and is never surprised when they do. Cynical software doesn’t even trust itself, so it puts up internal barriers to protect itself from failures. It refuses to get too intimate with other systems, because it could get hurt."
+- Transaction: abstract unit of work processed by the system
+- System: complete, interdependent set of hardware, applications, and services required to process transactions for users
+- A resilient system keeps processing transactions
+- Impulse & stress cause strain
+- Major dangers to system's longevity are memory leaks and data growth.
+- Q: How do you test for longevity bugs?
+  - Run your own load tests?
+  - "If all else fails, production becomes your longevity testing environment by default"
+- Trigger + way crack spreads + damage done as a result = failure mode
+- Have your code have crumple zones = areas that fail first
+- How to fix:
+  - From pool to CF, from one application in CF to all calling applications, from CF to all systems that used CF
+  - CF servers could be partitioned, or CF built w request/reply
+- "The more tightly coupled the architecture, the greater the chance that this coding error can propagate. Conversely, the less coupled architectures act as shock absorbers, diminishing the effects of this error instead of amplifying them."
+- Tight coupling accelerates cracks
+- Can't just ask a bunch of questions: have to rely on patterns & antipatterns
+
