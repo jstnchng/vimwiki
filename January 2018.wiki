@@ -16,3 +16,40 @@
   - ECS runs docker on EC2 instances
 * Service + Task def = what I want to run and how to run it
 * services are run on instances
+
+== 1/29 ==
+- MIME types
+  - indicate nature & format of a doc
+  - types like text, img, css, html, etc.
+- Dead man's switch (design pattern)
+  Switch that is automatically operated if human operator becomes unconscious
+=== Types of Architecture Diagrams ===
+- Physical vs logical vs logic flow
+- They capture different stuff, and are important to different audiences based on your goals
+- Physical = level of detail to implement architecture on a tech
+  - For implementation & deployment
+- Logical = level of detail w/o constraining to a particular tech or environment
+  - For planning & communicating architecture
+- Logic flow = user going through the program, decision tree
+=== Types of Logging ===
+- Diagnostic logging (for developers working on the program)
+- Event/ application logging
+  - for monitoring and alerting and analytics
+  - machine readable
+  - "things that occurred", i.e. every requested thing
+- Event sourcing
+  - every changed thing in the system
+=== Pure vs Idempotent vs Deterministic ===
+- Pure
+  - function always evaluates same result given same values
+  - evaluation of result cannot depend on hidden state or information or any external input
+  - evaluation of result will not result in side effects
+- Deterministic
+  - behavior can be completely predicted from the input
+  - all pure functions are deterministic, not all deterministic functions are pure
+    e.g. addition but with a console write is deterministic but not pure
+- Idempotent
+  - no changes in state between subsequent identical calls
+  - all pure functions are idempotent, not all idempotent functions are pure
+  - all deterministic functions are idempotent, not all idempotent functions are deterministic
+    e.g. DELETE can return 200 on first delete, and subsequent calls return 404 (therefore not deterministic), but they do not change the state (therefore idempotent).
