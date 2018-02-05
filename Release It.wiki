@@ -50,3 +50,17 @@ Ch 3:
 - Tight coupling accelerates cracks
 - Can't just ask a bunch of questions: have to rely on patterns & antipatterns
 
+Ch 4:
+- Disconnect b/w mental model and application model when impl invisible and surface appearance not obvious
+- Hidden linkage & tight coupling causes disasters
+- Integration points #1 killer of stability
+- Two types of network failures: fast and slow. Slow is worse, blocks
+- Combat integration pt problems w: circuit breaker and decoupling middleware
+- One server down jeopardizes the rest
+- Cascading failures require some mechanism to transmit the failure from one layer to the other
+- IP causes cracks, cascading failures accelerate them
+- Cascading failures often happen bc of resource pools
+- Q: cookies & HTTP & sessions (What is a session)
+- Use sessions for caching
+- Very hard to find hangs during development
+- Beware of code you cannot see!
