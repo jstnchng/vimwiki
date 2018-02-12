@@ -64,3 +64,33 @@ Ch 4:
 - Use sessions for caching
 - Very hard to find hangs during development
 - Beware of code you cannot see!
+- Self denial: protect shared resources! Best horizontal scalability model is "shared nothing"
+- Hard to spot scaling effects in prod early. in QA environments capacity often is different- must be designed out most of the time
+- Beware of: point to point communication (scales O(n^2))
+  Beware of: shared resources (scaling = more demand on those resources)
+- Shared nothing arch scales better at the cost of failover
+- Mismatched capacity = potential for self denial attacks
+  Have to consider cost! is it worth it to match capacities?
+- Ways to solve: autoscaling, testing (with double expected + most expensive transaction), capacity modeling
+- Dogpiles concentrate demand. Spread the surge out
+- Reddit outage from automation platform's assumption about expected state versus administrator's
+  Automation not as will of human admin but rather diffs current state and desired state and then makes changes
+- Build limits & safeguards into your automation tools
+- Slow responses tie up resources
+- Happen from excessive demand and propogate failure up
+- Bound result sets that return from API calls (paginate the front end call)
+
+Ch 5:
+- Recovery oriented mindset
+- Networks are fallible, hope is not a design method!
+- Set timeout for resource pools that block threads (calling threads must unblock to prevent your app from hanging)
+- Delay retries for timeouts (sometimes immediately retrying doesn't help)
+- Timeouts for recovering from failures, timeouts for IPs and blocked threads
+- Circuit breaker fail first to prevent total system failure. can be reset to get back into full functionality
+- Exist to prevent operations; automatically degrade functionality when system is under stress
+- Leaky bucket pattern for failure thresholds
+- Bulkheads = sealed partitions that prevent errors from moving to another area
+  Bulkheads + failing fast?
+- Run instances across zones & different regions? Is that necessary?
+- Bulkheads good at maintaining service, or partial service, during failures
+- Q: bind process to core or group of cores?
