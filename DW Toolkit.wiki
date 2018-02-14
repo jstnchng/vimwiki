@@ -51,4 +51,13 @@
 * Simple schemas can be queried w fewer joins more efficiently
 * Most granular/atomic data has the most dimensions
 * Dimensional models can be extended gracefully- can add new dims as long as that value is defined for existing fact rows, can add new facts as long as their level of detail is consistent w existing fact table
-*
+
+* Q: What is an olap cube versus a star schema
+* Q: What is the difference between a fact and a measure?
+* Dimension is the context associated w/ business process measurement event
+  Provide entry points to the data
+  Dimensions = reports' filters and labeling, facts = numeric values
+  Dimensions can be added as long as atomic data is the foundation
+* Q: ETL from source to backroom. what brings backroom to frontroom?
+* Q: what is enterprise bus architecture
+
