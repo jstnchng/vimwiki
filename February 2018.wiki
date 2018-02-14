@@ -13,3 +13,10 @@
   - What are my areas of weakness?
   - How have I improved?
   - How have I contributed?
+== 2/13/18 ==
+* DNS: maps hostnames to IPs
+* ALB: static IP for IPs that might change (multiple services that spin up)
+* Proxy: caller -> proxy -> service, then service -> proxy -> caller
+  Redirect: caller -> redirect, redirect -> caller (tells the caller what to redirect to), caller -> service
+* SSL on top of HTTPS, concept of handshake
+  Browser sends open connection, then returns with cert, verifies that signed cert matches url that's typed in
