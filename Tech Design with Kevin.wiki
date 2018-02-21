@@ -1,0 +1,53 @@
+== DNS, Route53, SSL, google.com ==
+=== DNS ===
+* Domain Name System
+* Turns domain main into IP address
+* Use IP address to route your request to the site
+* A record maps a name to one or more IP addresses
+  CNAME maps a name to another name (used when there are no other records on that name)
+=== Route53 ===
+* DNS web service, an AWS offering
+* Connects user requests to infra runing in AWS (EC2, ALB, S3 buckets)
+* Can also purchase and manage domain names in Route53
+* Q: how do you manage DNS server outside of AWS? Do you need your own DNS server?
+* Q: how do Route53 health checks work? Does it hit a healthcheck endpoint that you specify?
+=== What happens when you type in google.com ===
+* protocol    : http (https)
+  resource '/': retrieve main (index) page
+* HSTS list (list of websites that request to be contacted via HTTPS only)
+  If not in HSTS but only contactable through HTTPS, first HTTP request will return a response requesting only HTTPS
+* DNS lookup
+* After it gets IP address, takes that plus port number from url (http 80, https 443) and requests a TCP socket stream
+  Transport layer => TCP segment, destination port + source port
+  Network layer => additional IP address of destination server + current machine
+  Link layer => MAC address of machine + gateway
+=== TSL Handshake ===
+* Client sends a hello message with TLS version, list of cipher algorithms and compression methods available
+  - Q: how is this list generated
+* Server replies with a hello with its TLS version, selected cipher & compression, and public certificate (signed by CA). The cert has a public key used by the client to encrypt the rest of the handshake until a key is agreed upon
+* Client verifies cert against list of trusted CAs. If trusted, generate string of pseudorandom bytes (pre master key) and encrypt with public key. Client also makes its own symmetric master key with the PMK.
+* Server decrypts random bytes w private key and uses these bytes to make its symmetric master key.
+* Client sends finished message, encrypts hash of transmission w/ symmetric key.
+* Server generates its own hash, decrypts client hash to verify match, and then sends finished message.
+* TLS sends app data encryped with agreed symmetric key.
+=== Another analogy for TSL handshake ===
+* Jason sends a courier to company's address (request to IP)
+* Company has envelopes that when closed *can only be opened by the company*. Company and courier go together to a trusted third party that makes the company provide documentation to prove its identity. The notary certifies the company's identity and its secure envelopes and takes these envelopes back to Jason (signing request generates public key, private key is envelope)
+* Jason gets the envelopes, trust the notary (CA), so can trust the envelopes (cert)
+* Jason has secure envelopes that once sealed only Jason can open. Puts these in the company's secure envelopes and sends them back to the company (string of pseudorandom bytes, encrypted with server public key)
+
+== THIS PART IS FUZZY ==
+* Company gets the sealed secure envelope, opens it (as only it can, because it has the private key), and has Jason's secure envelopes (pseudorandom bytes)
+* Company has another kind of envelope that can only be opened and sealed by using a special combination (random bytes to make symmetric master key). The company puts this special combination envelope with the combination into one of Jason's envelopes (encrypt with random bytes)
+* Company has a type of secure envelope that anyone can open, but only the company can seal (encrypt with private key, decrypt with public key). Sends the whole thing to Jason
+* Jason can open it (with public key), knows it comes from the company, opens the envelope only Jason can open, and then finds combination envelope and combination. (*DON'T THINK THIS IS TRUE*)
+* Puts data into combination envelope, seals it with the combination, sends it to the company
+
+=== SSL Certs ===
+* SSL cert is a set of files to provide asymmetric encryption
+* Signing request (.csr), used by 3rd party to generate public key
+  Private key (.key), installed on the server and kept secret and secure
+  Public key (.crt), installed on the server but given freely to any connecting device
+  Intermediate certs, files provided by 3rd party that signed your public key
+* Need a dedicated IP for your SSL cert because establishing the secured communication channel comes first. Computer needs to connect to the IP of the server to encrypt, so server has to give the same cert for every connection
+  - Connects to your dedicated IP, given your SSL cert (public key), web browser will complain if cert received doesn't match doman name it is trying to connect to (IPs)
