@@ -51,3 +51,75 @@
   Intermediate certs, files provided by 3rd party that signed your public key
 * Need a dedicated IP for your SSL cert because establishing the secured communication channel comes first. Computer needs to connect to the IP of the server to encrypt, so server has to give the same cert for every connection
   - Connects to your dedicated IP, given your SSL cert (public key), web browser will complain if cert received doesn't match doman name it is trying to connect to (IPs)
+
+=== REST ===
+* REST = REpresentational State Transfer
+* RESTful web services allows requesting systems to access and manipulate web resources w/ a uniform & predefined set of ops
+* REST can be used over nearlay any protocol, but usually uses HTTP
+* REST constraints:
+  * Client/Server separate
+  * Stateless (calls can be made independently, and each call contains all the data necessary to complete the call)
+  * Cacheable data
+  * Uniform interface (e.g. HTTP w/ URI resources, CRUD operations)
+  * Layered system between client & end server
+* How does REST interact with HTTP?
+* What is the difference between REST and SOAP?
+  * REST faster, more efficient, can return/use other formats
+  * degree of coupling between client/server implementations
+  * REST client = generic client that uses a protocol and standardized methods
+  * REST needs hypermedia and HATEOAS => client only knows the entry point URI, resources provide links the client should follow
+
+=== Internet Protocol Suite (TCP/IP) ===
+=== Application Layer ===
+* protocols used by most apps for providing user services or exchanging app data over network connections established by lower level protocops
+* HTTP, FTP, SMTP, etc.
+=== Transport Layer ===
+* performs host to host communications
+===== UDP =====
+* thin protocol built on top of IP
+* basic unit of data is user datagram
+* change is end to end protocol: contains enough information to transfer a user datagram from one process on a transmitting host to another process on a receiving host
+===== TCP =====
+* full duplex reliable connection oriented service
+* stream oriented service: transfer large amount of data in a reliable way
+* basic unit of data is TCP segment
+* TCP assigns sequence number to each transferred byte, requires an ACK, or else resends
+* uses sequence number to order segments upon reception
+* TCP connection uses 3 way handshake to start
+=== Internet Layer ===
+* exchanges datagrams across network boundaries
+* uniform network interface that hides layout of underlying network connections
+===== IP =====
+* Internet protocol is the first layer of virtual network abstraction
+* unreliable, connectionless delivery system
+* unreliable because protocol provides no functionality for recovering bad datagrams
+* basic unit of data exchange is the internet datagram
+==== Link Layer ====
+* defines networking methods within the scope of the local network link
+
+=== HTTP ===
+* set of rules for transfering files. method for encoding and transporting info b/w a client and a web server
+* transfer hypertext (files that can contain references to other files)
+* stateless protocol
+* request response paradigm: client makes a request, server issues a response w/ requested content + status info about the request
+
+=== OSI ===
+* 7 layers: physical, data link, network, transport, session, presentation, application
+* bit, frame, packet, transport, data (session, presentation, application)
+==== Physical ====
+* 1's and 0's between two nodes
+==== Data Link ====
+* puts 1's and 0's on wire, pulls 1's and 0's from wires.
+* groups them into chunks called frames
+==== Network ====
+* packet delivery from end to end
+* end to end versus hop to hop for data link
+==== Transport ====
+* distinguishing network streams with port numbers (an addressing scheme)
+* a unique application stream is identified by source + destination port.
+* service to service delivery
+==== Session/Presentation/Application ====
+* final steps before data transferred through network is displayed to the end user
+* session: controls the dialogue between computers
+* presentation: context between applicatio layer entities
+* application: interacts w software apps that implement a communicating component
