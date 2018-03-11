@@ -94,3 +94,11 @@ Ch 5:
 - Run instances across zones & different regions? Is that necessary?
 - Bulkheads good at maintaining service, or partial service, during failures
 - Q: bind process to core or group of cores?
+- Steady state: don't fiddle with production systems. most likely reason for logging into a production system is to clean up old files
+  any mechanism that accumulates resources must also be drained or recycled
+- move log files on prod into staging. figure out the difference between different types of logging
+- If a system can determine in advance that they are going to fail, better to fail fast
+- gather resources and check requirements before executing to fail faster
+- Test harnesses not restricted to interface like mock objects (what does this mean). Can test errors more than just what can be deliberately reproduced
+- Decoupling middleware is an early architectural decision
+-
