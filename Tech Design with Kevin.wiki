@@ -55,7 +55,8 @@
 === REST ===
 * REST = REpresentational State Transfer
 * RESTful web services allows requesting systems to access and manipulate web resources w/ a uniform & predefined set of ops
-* REST can be used over nearlay any protocol, but usually uses HTTP
+* REST can be used over nearly any protocol, but usually uses HTTP
+* protocol: way for two things to communicate
 * REST constraints:
   * Client/Server separate
   * Stateless (calls can be made independently, and each call contains all the data necessary to complete the call)
@@ -68,12 +69,20 @@
   * degree of coupling between client/server implementations
   * REST client = generic client that uses a protocol and standardized methods
   * REST needs hypermedia and HATEOAS => client only knows the entry point URI, resources provide links the client should follow
+* REST: uri tied to specific objects, stateless & cacheable calls to specific objects in data model
+
+=== HTTP ===
+* set of rules for transfering files. method for encoding and transporting info b/w a client and a web server
+* transfer hypertext (files that can contain references to other files)
+* stateless protocol
+* request response paradigm: client makes a request, server issues a response w/ requested content + status info about the request
+* standard set of headers, headers mean very specific specified things
 
 === Internet Protocol Suite (TCP/IP) ===
-=== Application Layer ===
-* protocols used by most apps for providing user services or exchanging app data over network connections established by lower level protocops
+==== Application Layer ====
+* protocols used by most apps for providing user services or exchanging app data over network connections established by lower level protocols
 * HTTP, FTP, SMTP, etc.
-=== Transport Layer ===
+==== Transport Layer ====
 * performs host to host communications
 ===== UDP =====
 * thin protocol built on top of IP
@@ -86,7 +95,8 @@
 * TCP assigns sequence number to each transferred byte, requires an ACK, or else resends
 * uses sequence number to order segments upon reception
 * TCP connection uses 3 way handshake to start
-=== Internet Layer ===
+* Flow control & congestion control
+==== Internet Layer ====
 * exchanges datagrams across network boundaries
 * uniform network interface that hides layout of underlying network connections
 ===== IP =====
@@ -97,29 +107,27 @@
 ==== Link Layer ====
 * defines networking methods within the scope of the local network link
 
-=== HTTP ===
-* set of rules for transfering files. method for encoding and transporting info b/w a client and a web server
-* transfer hypertext (files that can contain references to other files)
-* stateless protocol
-* request response paradigm: client makes a request, server issues a response w/ requested content + status info about the request
-
 === OSI ===
 * 7 layers: physical, data link, network, transport, session, presentation, application
 * bit, frame, packet, transport, data (session, presentation, application)
 ==== Physical ====
 * 1's and 0's between two nodes
+* concerned with how to parse bits (how to send 1's and 0's)
 ==== Data Link ====
 * puts 1's and 0's on wire, pulls 1's and 0's from wires.
 * groups them into chunks called frames
+* who sent what (where to send 1's and 0's for physical data links)
 ==== Network ====
 * packet delivery from end to end
 * end to end versus hop to hop for data link
+* where to send 1's and 0's to virtual networks (packets)
 ==== Transport ====
 * distinguishing network streams with port numbers (an addressing scheme)
 * a unique application stream is identified by source + destination port.
 * service to service delivery
+* how to persist/maintain a connection b/w two virtual networks and send/receive a stream of packets
 ==== Session/Presentation/Application ====
 * final steps before data transferred through network is displayed to the end user
 * session: controls the dialogue between computers
-* presentation: context between applicatio layer entities
+* presentation: context between application layer entities
 * application: interacts w software apps that implement a communicating component
