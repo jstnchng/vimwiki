@@ -1,7 +1,7 @@
 == DNS, Route53, SSL, google.com ==
 === DNS ===
 * Domain Name System
-* Turns domain main into IP address
+* Turns domain names into IP address
 * Use IP address to route your request to the site
 * A record maps a name to one or more IP addresses
   CNAME maps a name to another name (used when there are no other records on that name)
