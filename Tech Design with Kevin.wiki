@@ -131,3 +131,48 @@
 * session: controls the dialogue between computers
 * presentation: context between application layer entities
 * application: interacts w software apps that implement a communicating component
+
+=== Consistency Models in Databases ===
+* Consistency is the requirement that any given DB transaction changes affected data only in allowed ways
+  * data written to DB must be valid according to all the defined rules (constraints, cascades, triggers, etc.)
+  * C in ACID
+* Multiple definitions besides this one:
+  Any transaction started in the future sees the effects of all other transactions in the past
+  Operations in transactions are performed accurately, correctly, and with validity
+* Also part of CAP theorem, but different. Atomic consistency vs DB consistency: atomic consistency is the property of a single request/response operation sequence; DB is about transations
+  * CAP is cluster wide, ACID is node specific
+* Enforced consistency vs eventual consistency
+  * Eventual: Storage system guarantees that if no new updates made, eventually all accesses will return the last updated values
+* BASE (Basically Available Soft-state Eventually) is eventual consistency, contrasts with RDBMS ACID transactions
+* Serializable consistency: same operations are applied in the same order to every copy of data item
+* Linearizable: same as serializable + order reflects the order in which operations appear to execute to an external observer
+* Sequential consistency: operations can take place before invocation or after completion, but operations from any given process need to maintain that order
+* Weak consistency models allow for more histories
+* https://aphyr.com/posts/313-strong-consistency-models
+
+=== Types of Databases ===
+==== Relational Databases ====
+* Pros
+  * Relational databases work with structured data.
+  * They support ACID transactional consistency and support “joins.”
+  * They come with built-in data integrity and a large eco-system.
+  * Relationships in this system have constraints.
+  * There is limitless indexing. Strong SQL.
+* Cons
+  * Relational Databases do not scale out horizontally very well (concurrency and data size), only vertically, (unless you use sharding).
+  * Data is normalized, meaning lots of joins, which affects speed.
+  * They have problems working with semi-structured data.
+==== NOSQL ====
+* Pros
+  * They scale out horizontally and work with unstructured and semi-structured data. Some support ACID transactional consistency.
+  * High availability.
+* Cons
+  * Weaker or eventual consistency (BASE) instead of ACID.
+  * Limited support for joins.
+  * Data is denormalized, requiring mass updates (i.e. product name change).
+  * Does not have built-in data integrity (must do in code).
+  * Limited indexing.
+* Q: does postgres support strong consistency?
+
+=== DB Sessions/Transaction and DB Drivers * DB connections ===
+
