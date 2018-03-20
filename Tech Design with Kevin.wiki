@@ -141,9 +141,13 @@
   Operations in transactions are performed accurately, correctly, and with validity
 * Also part of CAP theorem, but different. Atomic consistency vs DB consistency: atomic consistency is the property of a single request/response operation sequence; DB is about transations
   * CAP is cluster wide, ACID is node specific
+- Between CAP, always choose P, need to pick between A and C
+  - Choose C or A in differing degrees
 * Enforced consistency vs eventual consistency
   * Eventual: Storage system guarantees that if no new updates made, eventually all accesses will return the last updated values
 * BASE (Basically Available Soft-state Eventually) is eventual consistency, contrasts with RDBMS ACID transactions
+  * in the same vein as ACID
+  * Transactions will slowly propagate
 * Serializable consistency: same operations are applied in the same order to every copy of data item
 * Linearizable: same as serializable + order reflects the order in which operations appear to execute to an external observer
 * Sequential consistency: operations can take place before invocation or after completion, but operations from any given process need to maintain that order
@@ -157,11 +161,14 @@
   * They support ACID transactional consistency and support “joins.”
   * They come with built-in data integrity and a large eco-system.
   * Relationships in this system have constraints.
-  * There is limitless indexing. Strong SQL.
+  * There is limitless indexing.
 * Cons
   * Relational Databases do not scale out horizontally very well (concurrency and data size), only vertically, (unless you use sharding).
   * Data is normalized, meaning lots of joins, which affects speed.
   * They have problems working with semi-structured data.
+- relational DBs require strict structure
+- easy to index and join and do fancy queries
+- if you just care about having rules w/o a lot of consistency, then you can use postgres for one master node with rules that eventually propagate
 ==== NOSQL ====
 * Pros
   * They scale out horizontally and work with unstructured and semi-structured data. Some support ACID transactional consistency.
@@ -173,6 +180,21 @@
   * Does not have built-in data integrity (must do in code).
   * Limited indexing.
 * Q: does postgres support strong consistency?
+- document stores; stored files
+- "directory" your db; directory has a name, new files has an id in the directory
+- easy to put stuff in, no validation or search, so it is more horizontally scalable (no consistency for rules, no validation, etc.)
+- can store metafiles for uniqueness checks
+==== Liveness and Safety ====
+- In all distributed systems these are the two properties
+- Liveness corresponds to availability (eventually I'll be accessible)
+- Safety corresponds to consistency (rules/data consistency)
+==== Graph DB ====
+- Different conversation than SQL versus NOSQL (A lot about scalability)
+- Think of graph DBs as another type of DB, has its own liveness and scalability
+- but different b/c data is stored in a graph queryable way
+==== Different types of distributed systems ====
+- Look up master/slave replicas, master/master replicas, consensus
+- relation use master/slave, document use master/master, graph/relational moving towards consensus
 
 === DB Sessions/Transaction and DB Drivers & DB connections ===
 * DB transaction is a unit of work performed within a DBMS against a DB
@@ -180,6 +202,11 @@
 * Transactions must happen in isolation, so they do not know about each other until they are committed
 * Session is a connection b/w an application and the RDBMS (semi permanent interactive information exchange)
   * Q: session is multiple transactions? what is the point of a session
+==== Isolation Levels ====
+- I in ACID
+- There are different models for isolation
+- https://technet.microsoft.com/en-us/library/ms189122(v=sql.105).aspx
+- almost every relational db by default is nonrepeatable read
 ==== Database Drivers ====
 * DB server has its own version of client/server protocol
 * Use DB driver to implement the protocol and exposes an API you use to interact with the DB
