@@ -174,5 +174,18 @@
   * Limited indexing.
 * Q: does postgres support strong consistency?
 
-=== DB Sessions/Transaction and DB Drivers * DB connections ===
-
+=== DB Sessions/Transaction and DB Drivers & DB connections ===
+* DB transaction is a unit of work performed within a DBMS against a DB
+* Transactions have 4 properties (ACID)
+* Transactions must happen in isolation, so they do not know about each other until they are committed
+* Session is a connection b/w an application and the RDBMS (semi permanent interactive information exchange)
+  * Q: session is multiple transactions? what is the point of a session
+==== Database Drivers ====
+* DB server has its own version of client/server protocol
+* Use DB driver to implement the protocol and exposes an API you use to interact with the DB
+* ODBC and JDBC standards to standardize APIs so applications don't need to change when they change DBs
+==== DB Connections ====
+* Connection is how db server and client software communicate
+* Uses the connection to send and receive info
+* Connections built with a connection string for instance & user auth
+* Q: is one connection a session? are connections open until closed? is it like a stream?
