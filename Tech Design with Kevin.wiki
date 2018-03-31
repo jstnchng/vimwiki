@@ -216,3 +216,27 @@
 * Uses the connection to send and receive info
 * Connections built with a connection string for instance & user auth
 * Q: is one connection a session? are connections open until closed? is it like a stream?
+
+=== Isolation Levels ===
+* isolation levels control
+  * whether locks are taken when data is read, and what types of locks are requested
+  * how long read locks are held
+  * Whether a read operation referencing rows modified by another transaction:
+    * Blocks until the exclusive lock on the row is freed.
+    * Retrieves the committed version of the row that existed at the time the statement or transaction started.
+    * Reads the uncommitted data modification.
+* Dirty read: can read data from a row modified by another running transaction not yet committed
+* None repeatable reads: Data read twice in same transaction cannot be guaranteed to contain the same value
+* Phantom reads: two queries run, different collection of rows returned* Phantom reads: two queries run, different collection of rows returned* Phantom reads: two queries run, different collection of rows returned* Phantom reads: two queries run, different collection of rows returned* Phantom reads: two queries run, different collection of rows returned* Phantom reads: two queries run, different collection of rows returned* Phantom reads: two queries run, different collection of rows returned
+|                  | dirty reads | non repeatable reads | phantom |
+|------------------|-------------|----------------------|---------|
+| Read uncommitted | Yes         | Yes                  | Yes     |
+| Read committed   | No          | Yes                  | Yes     |
+| Repeatable read  | No          | No                   | Yes     |
+| Serializable     | No          | No                   | No      |
+
+=== Reverse Proxies ===
+* proxy server is a intermediary server that forwards requests for content from multiple clients to multiple servers
+* Reverse proxy server sits behind the firewall in a private network and directs client requests to the appropriate backend server
+* Uses: load balancing, web acceleration (can do SSL, cache, etc.) and security/anonymity (protects identity of backend servers and access from a single record locator/url)
+* Reverse proxy versus ALB versus forward proxy?
