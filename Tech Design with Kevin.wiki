@@ -243,3 +243,50 @@
 * Reverse proxy versus ALB versus forward proxy?
 * Reverse vs forward proxy is about identity hiding
   * forward proxy hides identity of client -> server, reverse proxy hides identity of server to client
+
+=== Authorization & Authentication ===
+* Authentication is the process of verifying who you are. When you log on to a PC with a user name and password you are authenticating.
+  Authentication is about who somebody is.
+  SSL, TLS
+* Authorization is the process of verifying that you have access to something. Gaining access to a resource (e.g. directory on a hard disk) because the permissions configured on it allow you access is authorization.
+  Authorization is about what they're allowed to do.
+  role-based, rule-based, etc.
+==== OneLogin ====
+* user signs into OneLogin, handles your authentication
+* passes token or sends encrypted user auth data for form based auth (fill in user & pass)
+* hit OneLogin through HTTPS, handles all of your stuff for you
+* users synced to OneLogin from a user directory like AD
+==== OAuth ====
+* notifying resource provider that the resource owner grants permission to a 3rd party to access their information
+* OAuth allows for
+  * different access levels
+  * access granularity
+  * manage access from the resource provider
+* useful & common for social media integrating w 3rd party apps
+==== OIDC ====
+* identity layer built on top of OAuth2
+* allows clients to verify identity of the end user based on the authentication performed by an authorization server, and give basic profile information about the end user (JWT?)
+* basically secure way to contact id service, get some user details, and return securely back to app
+* OIDC lets clients request/receive data about authenticated sessions and end-users
+==== Access Control Models ====
+* Attribute based access control (ABAC)
+  access rights granted to users through policies that evaluate attributes (user attributes, resource attributes, env conditions)
+* discretionary (DAC)
+  data owner decides
+* History based (HBAC)
+  based on history of the user (behavior, time b/w requests, content, etc.)
+* identity based (IBAC)
+  ???
+* mandatory (MBAC)
+  users cannot determine who has access, based on clearance levels and classification of data
+* Organization based (OrBAC)
+  policy designer defines a security policy independent of implementation (?)
+* Role based (RBAC)
+  based on title/role
+* Rule based (RAC)
+  context based, business rules (how is this not everything else...?)
+* Responsibility based
+  responsibilities given (how is this different from attribute)
+==== Rule vs Role based Auth ====
+* Role based about who you are
+* Rule based about every other condition (is that true...?)
