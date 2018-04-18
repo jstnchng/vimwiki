@@ -273,6 +273,7 @@
   access rights granted to users through policies that evaluate attributes (user attributes, resource attributes, env conditions)
 * discretionary (DAC)
   data owner decides
+  whitelist/blacklist model
 * History based (HBAC)
   based on history of the user (behavior, time b/w requests, content, etc.)
 * identity based (IBAC)
@@ -283,8 +284,10 @@
   policy designer defines a security policy independent of implementation (?)
 * Role based (RBAC)
   based on title/role
+  superset of mandatory, abstraction (aggregation of discretionary)
 * Rule based (RAC)
   context based, business rules (how is this not everything else...?)
+  don't need arbitrary permission roles
 * Responsibility based
   responsibilities given (how is this different from attribute)
 ==== Rule vs Role based Auth ====
