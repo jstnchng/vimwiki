@@ -10,6 +10,7 @@
     10.0.0.0/8 is anything 10. (anything on 10. network can access stuff)
 * Subnet is a logical subdivision of an IP network. can have app and DB subnets (question: how do you restrict apps/DBs to have only specific IPs?)
 * you can run traceroute 8.8.8.8 and see how your network gets from yours to googles dns
+* Opening up inbound/outbound rules is not enough, there is a combination of gateway + firewall (can you get there + once you get there do you have access)
 === AWS EC2 ECS ===
 * EC2 is VMs (machine images) running on hardware, we only see the EC2 instances (orchestration layer from AWS takes care of what hardware we're actually using)
 * ECS runs on top of EC2, but basically runs docker containers on EC2 instances
@@ -21,4 +22,4 @@
 * also can select own IP address ranges, subnet creations, route tables and newtork gateways, etc.
 * can have public facing/private facing subnets, etc. (just based on rules)
 * VPN makes your computer part of the network, can use it to connect to VPCs
-* future reading topics: security groups, ACL, subnet/layer, ip addresses, inbound/outbound rules, VPCs, orchestration layers, clusters/instances/containers/hosts, EC2/ECS
+* future reading topics: security groups, ACL, subnet/layer, ip addresses, inbound/outbound rules, VPCs, orchestration layers, clusters/instances/containers/hosts, EC2/ECS, gateway, NAT
