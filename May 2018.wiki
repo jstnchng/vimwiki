@@ -1,0 +1,24 @@
+== 5/8 ==
+* running docker run with -net=host makes docker containers connect with your local network. it's a fast and easy way to connect everything, but takes up ports on your local network... may not be something you want. better to set up a docker network so your networks can be separate from each other (especially if you are running multiple projects)
+* get stuff to run via docker containers! don't download stuff locally. it's pretty straightforward to grab the docker image and just run your commands thru that
+* when you pass something to your docker image depending on the entrypoint you may be passing arguments to the entry point or a command (including arguments). docker inspect the image to see the entrypoint
+== 5/9 ==
+=== networking stuff ===
+* CIDR is a subnet range, a way of specifying a range of IP addresses via wildcards (0) and bit specification.
+  * The format is subnetmaks + CDIR prefix = <4bit>.<4bit>.<4bit>.<4bit>/<number_1_bits>
+  * 0.0.0.0/0 is the internet
+    10.0.0.0/8 is anything 10. (anything on 10. network can access stuff)
+* Subnet is a logical subdivision of an IP network. can have app and DB subnets (question: how do you restrict apps/DBs to have only specific IPs?)
+* you can run traceroute 8.8.8.8 and see how your network gets from yours to googles dns
+=== AWS EC2 ECS ===
+* EC2 is VMs (machine images) running on hardware, we only see the EC2 instances (orchestration layer from AWS takes care of what hardware we're actually using)
+* ECS runs on top of EC2, but basically runs docker containers on EC2 instances
+  ECS is a logical grouping (cluster) of EC2 instances. all EC2 instances act as docker hosts, which means ECS can send commands to those EC2 instances to launch a container on them
+* ECS is configuration for efficient use and management of EC2 instances for running docker containers
+* https://stackoverflow.com/questions/40575584/what-is-the-difference-between-amazon-ecs-and-amazon-ec2
+=== VPC ===
+* VPC is virtual private cloud. lets me provision a logically isolated section of AWS cloud where I can launch AWS resources in a virtual network I define. that means I can do inbound/outbound rules and restrict what can see what and what can talk to what.
+* also can select own IP address ranges, subnet creations, route tables and newtork gateways, etc.
+* can have public facing/private facing subnets, etc. (just based on rules)
+* VPN makes your computer part of the network, can use it to connect to VPCs
+* future reading topics: security groups, ACL, subnet/layer, ip addresses, inbound/outbound rules, VPCs, orchestration layers, clusters/instances/containers/hosts, EC2/ECS
