@@ -322,8 +322,11 @@
 === Redis ===
 * In memory data store
 * Also consumer/subscription?
+=== Kafka ===
 == Migrating Databases ==
 * Why is doing database migrations on app startup bad?
+  * couples two things that shouldn't be coupled (4 apps at once that need to apply migrations?)
+  * need to restart app when adding new migrations
 * Writing DB migrations: every change you make must be backwards compatible with the rest of the system
 * How do you manage your migrations?
 * Flyway allows you to recreate a DB from scratch, make it clear what state a DB is in, migrate in a deterministic way from current version of DB to next
@@ -333,4 +336,7 @@
   Scan filesystem/classpath for migrations folder
   Sort them by versions
   Apply and update schema history table
-* What are the two ways we migrate DBs?
+* Two categories of migrations: creating tables/views (adding), and modifying data
+  data definition (changing schema) and then changing data
+  schema migration vs data migrations
+* ORMs also an option to manage migrations, but mixes domains and also forces you to not write in sql
