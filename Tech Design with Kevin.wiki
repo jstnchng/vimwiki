@@ -293,3 +293,44 @@
 ==== Rule vs Role based Auth ====
 * Role based about who you are
 * Rule based about every other condition (is that true...?)
+
+== Queues and Migrating DBs ==
+=== SQS and SNS ===
+* Amazon offerings
+* SNS is a pub/sub system, messages are pushed to subscribers
+* SQS is a distributed queueing system. Receivers poll from SQS to receive messages.
+  Messages can't be received by mulitple receivers at the same time
+  Any receiver can receive/process/delete a message
+  Polling will always introduce some latency
+* Use SNS to distribute several copies of messages to receivers. Send time-critical messages
+* Use SQS to hold messages, decouple applications (or integrate) so you can keep messages in SQS for a while. Decouple sending & receiving components
+* Publish to SNS topic, subscribe to SNS topic
+* Produce to SQS queue, consume from SQS queue
+=== RabbitMQ ===
+* Also a message queue
+* Differences: RabbitMQ supports blocking, so you can have the client sit and wait for a message to be available w/o needing to poll
+  For SQS you have to poll and wait for timeout before disconnecting
+* Selectively consume messages based on topics
+* SQS is per message price :o
+* SQS uses visibility timeouts (once set time has passed after messag is consumed, it requeues unless its deleted), so for longer time to process messages they need to reset the visibility timeout
+* RabbitMQ has ack and noack. noack => acked as soon as consumed. ack => client must acknowledge or else it'll requeue automatically
+* Both guarantee at least once delivery, so functions that process the messages need to be idempotent
+=== Exchange Types ===
+* Fanout: pushes all messages it receives to all queues bound to it
+* Topic: pub/sub to topics
+* Direct: bind a routing key to one or more queues, based on key in message, publish to a specific queue
+=== Redis ===
+* In memory data store
+* Also consumer/subscription?
+== Migrating Databases ==
+* Why is doing database migrations on app startup bad?
+* Writing DB migrations: every change you make must be backwards compatible with the rest of the system
+* How do you manage your migrations?
+* Flyway allows you to recreate a DB from scratch, make it clear what state a DB is in, migrate in a deterministic way from current version of DB to next
+* Store changes to the Database in version control
+* All DB changes are migrations
+* Flyway looks for schema history table (flyway_schema_history)
+  Scan filesystem/classpath for migrations folder
+  Sort them by versions
+  Apply and update schema history table
+* What are the two ways we migrate DBs?
