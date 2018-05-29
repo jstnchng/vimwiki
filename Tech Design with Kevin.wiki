@@ -349,11 +349,18 @@
 * Subnet = a range of IP addresses in your VPC
 * Have to specify a cidr block for your VPC
 * Subnet = cidr block subset of cidr block for vpc
-* Q: What happens when IPs collide?
 * The internet is a collection of networks
 * CIDR = new flexible way to express network addresses
 * Network security is about preventing misuse through unauthorized access. About managing access, stopping threats from spreading
 * Stuff like VPN (encrypts endpoint to network), network segmentation, firewalls (barriers b/w internal network and untrusted external networks)
+=== Questions for next time ===
+* Draw out VPC, subnet within VPC, how does it work w AZ and region
+* What else is there after subnet? EC2? Route53? S3? is S3 inside your VPC
+* What happens if your IPs collide?
+* Why CIDR block, not full range
+* How to get your VPC to talk to other networks
+* What is ipv4, ipv6
+* Restrictions to connect
 == AWS Offerings ==
 === SNS SQS ===
 * SNS is a pub/sub system, messages are pushed to subscribers
@@ -376,6 +383,9 @@
 * Simple storage service = store and retrieve any amount of data
 * Stores data as objects in buckets. An object = file + optional metadata
 * Can control access, view access logs, choose geographical region to store
+* Eventually consistent, 99.999999999% durability (S3 will never lose your data, almost always have access to your data)
+* S3 bucket names are globally namespaced, public service
+* S3 can be sharded worldwide
 === ECR ===
 * Managed AWS docker registry service
 * private docker repos, connects with ECS
