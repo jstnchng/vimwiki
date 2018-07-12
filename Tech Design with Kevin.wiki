@@ -395,3 +395,30 @@
 * Runs on EC2 instances... on an EC2 cluster
 * Q: does it have to run on EC2 instances?
 * Don't have to worry about scaling, cluster management, and configuration management
+
+== AWS VPC ==
+* Region is physical location
+* AZ = physical datacenter, with its own set of guards, fire hazards, fault lines
+* physical addresses are the machines, they have a particular format
+* in a virtual space, VPCs are a way to organize the world
+* a virtual address criss cross with a physical address, they are not the same but they are related
+* IP address range = CIDR block
+* Why not just VPC to subnet 1:1 mapping
+* Why do we have VPCS
+  * For security
+  * Need a way to tie your logical addressing to your physical addresses (so you know how to deploy to which AZ)
+* Amazon ups abstraction from boxes (physical) to datacenter
+* There are certain reserved IP ranges for internal use on the public internet (like 10/8)
+* Tiered architecture on top of IP ranges to handle colliding IP addresses
+  * IP1 -> igw1 -> igw2 -> IP1
+  * IP1 and igw1 on VPC1, igw1 and igw2 separate IPs on the public internet, each one knows to resolve IP1 differently
+* IPv4 vs IPv6, IPv6 more ip addresses, tradeoff is complexity + speed
+* VPC peering allows you to connect two VPCs without going through an internet gateway (direct connection b/w two VPCs)
+  * This is just an amazon thing
+* But you want to hide your IP ranges, so you want VPC IP Cidr blocks to be hidden
+* Direct connect? World is not just amazon
+  * some people have their own internal network, want a box on AWS to be able to talk to a box outside of a AWS network
+  * don't want laptop on the public internet to be able to hit it, but need to connect the two
+* Security + performance again (petabytes of data flooding network, slow, and could be insecure)
+  * Snowmobile
+* S3 is outside of this region/AZ thing, which is why its globally namespaced
