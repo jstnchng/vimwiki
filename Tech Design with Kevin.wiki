@@ -227,7 +227,7 @@
     * Reads the uncommitted data modification.
 * Dirty read: can read data from a row modified by another running transaction not yet committed
 * Non repeatable reads: Data read twice in same transaction cannot be guaranteed to contain the same value
-* Phantom reads: two queries run, different collection of rows returned* Phantom reads: two queries run, different collection of rows returned* Phantom reads: two queries run, different collection of rows returned* Phantom reads: two queries run, different collection of rows returned* Phantom reads: two queries run, different collection of rows returned* Phantom reads: two queries run, different collection of rows returned* Phantom reads: two queries run, different collection of rows returned
+* Phantom reads: two queries run, different collection of rows returned
 |                  | dirty reads | non repeatable reads | phantom |
 |------------------|-------------|----------------------|---------|
 | Read uncommitted | Yes         | Yes                  | Yes     |
